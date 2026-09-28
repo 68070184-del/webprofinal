@@ -1,0 +1,249 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px;
+}
+
+/* Top Bar: Legend & Status Indicators */
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.header-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #212529;
+}
+
+.legend {
+    display: flex;
+    gap: 14px;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+/* Responsive Single-Screen Floor Grid */
+.floor-plan {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 240px 1fr 280px;
+    gap: 16px;
+    height: calc(100vh - 65px);
+}
+
+.zone {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.zone-header {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Dynamic Grid Layouts per Zone */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    flex: 1;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    flex: 1;
+}
+
+.grid-large {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    flex: 1;
+}
+
+/* Table Box Component */
+.table-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+}
+
+.table-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.table-box h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.table-box span {
+    font-size: 0.72rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Status Colors */
+.status-available { background-color: #198754; }
+.status-occupied  { background-color: #dc3545; }
+.status-cleaning  { background-color: #6c757d; }
+.status-billed    { background-color: #ffc107; color: #000; }
+.status-billed span { color: #212529; }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* สีมืดโปร่งแสง */
+    backdrop-filter: blur(8px);           /* เอฟเฟกต์เบลอพื้นหลัง */
+    display: none;                         /* ซ่อนไว้เป็นค่าเริ่มต้น */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+/* เมื่อเปิด Modal ให้แสดงผล */
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-card {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
+    transition: transform 0.25s ease;
+}
+
+.modal-overlay.active .modal-card {
+    transform: scale(1);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-cancel { background: #e9ecef; color: #495057; }
+.btn-submit { background: #198754; color: #fff; }
+
+        /* Hide receipt template on standard computer screen */
+.print-only {
+    display: none;
+}
+
+
+/* Print Mode: Hide floor plan & show only the receipt slip */
+@media print {
+    @page {
+        margin: 0;
+        size: auto;
+    }
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    #printArea, #printArea * {
+        visibility: visible !important;
+    }
+
+    #printArea {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 80mm; /* Standard receipt roll width */
+        margin: 0 auto;
+        padding: 10px;
+        text-align: center;
+        font-family: monospace;
+    }
+}

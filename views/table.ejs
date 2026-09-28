@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แผนผังโต๊ะ</title>
+    <link rel="stylesheet" href="/table.css">
+</head>
+<body>
+
+    <div class="header-bar">
+        <h1 class="header-title">ผังโต๊ะทั้งหมด</h1>
+        <div class="legend">
+            <div class="legend-item"><span class="legend-dot status-available"></span> ว่าง</div>
+            <div class="legend-item"><span class="legend-dot status-occupied"></span> กำลังใช้งาน</div>
+            <div class="legend-item"><span class="legend-dot status-billed"></span> ชำระเงินแล้ว</div>
+            <div class="legend-item"><span class="legend-dot status-cleaning"></span> กำลังทำความสะอาด</div>
+        </div>
+    </div>
+
+    <div class="floor-plan">
+        <!-- 2-Seat Zone (Tables 1-4) -->
+        <div class="zone">
+            <div class="zone-header">Zone A: 2 ที่นั่ง</div>
+            <div class="grid-2">
+                <a href="javascript:void(0)" id="table-1" onclick="openTableModal(1,2)" class="table-box status-available">
+                    <h3>1</h3><span>2 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-2" class="table-box status-available" onclick="openTableModal(2,2)">
+                    <h3>2</h3><span>2 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-3" class="table-box status-available" onclick="openTableModal(3,2)">
+                    <h3>3</h3><span>2 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-4" class="table-box status-available" onclick="openTableModal(4,2)">
+                    <h3>4</h3><span>2 Seats</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 4-Seat Zone (Tables 5-12) -->
+        <div class="zone">
+            <div class="zone-header">Zone B: 4 ที่นั่ง</div>
+            <div class="grid-4">
+                <a href="javascript:void(0)" id="table-5" class="table-box status-available" onclick="openTableModal(5,4)">
+                    <h3>5</h3><span>4 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-6" class="table-box status-available" onclick="openTableModal(6,4)">
+                    <h3>6</h3><span>4 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-7" class="table-box status-available" onclick="openTableModal(7,4)">
+                    <h3>7</h3><span>4 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-8" class="table-box status-available" onclick="openTableModal(8,4)">
+                    <h3>8</h3><span>4 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-9" class="table-box status-available" onclick="openTableModal(9,4)">
+                    <h3>9</h3><span>4 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-10" class="table-box status-available" onclick="openTableModal(10,4)">
+                    <h3>10</h3><span>4 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-11" class="table-box status-available" onclick="openTableModal(11,4)">
+                    <h3>11</h3><span>4 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-12" class="table-box status-available" onclick="openTableModal(12,4)">
+                    <h3>12</h3><span>4 Seats</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Large Group Zone (6 & 8 Seats: Tables 13-20) -->
+        <div class="zone">
+            <div class="zone-header">Zone C: 6 & 8 ที่นั่ง</div>
+            <div class="grid-large">
+                <a href="javascript:void(0)" id="table-13" class="table-box status-available" onclick="openTableModal(13,6)">
+                    <h3>13</h3><span>6 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-14" class="table-box status-available" onclick="openTableModal(14,6)">
+                    <h3>14</h3><span>6 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-15" class="table-box status-available" onclick="openTableModal(15,6)">
+                    <h3>15</h3><span>6 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-16" class="table-box status-available" onclick="openTableModal(16,6)">
+                    <h3>16</h3><span>6 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-17" class="table-box status-available" onclick="openTableModal(17,6)">
+                    <h3>17</h3><span>6 Seats</span>
+                </a>    
+                <a href="javascript:void(0)" id="table-18" class="table-box status-available" onclick="openTableModal(18,6)">
+                    <h3>18</h3><span>6 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-19" class="table-box status-available" onclick="openTableModal(19,8)"> 
+                    <h3>19</h3><span>8 Seats</span>
+                </a>
+                <a href="javascript:void(0)" id="table-20" class="table-box status-available" onclick="openTableModal(20,8)">
+                    <h3>20</h3><span>8 Seats</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="tableModal" class="modal-overlay" onclick="handleBackdropClick(event)">
+        <div class="modal-card">
+            <h3 id="modalTitle" style="margin-bottom: 16px;">เปิดรอบโต๊ะ</h3>
+            
+            <form id="sessionForm" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" id="modalTableId" name="table_id">
+
+                <div class="form-group">
+                    <label for="customerCount">จำนวนลูกค้า (ท่าน):</label>
+                    <input type="number" id="customerCount" name="customer_count" min="1" max="8" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="packageSelect">แพ็กเกจบุฟเฟต์:</label>
+                    <select id="packageSelect" name="packages_id" required>
+                        <option value="1">Standard Buffet</option>
+                        <option value="2">Premium Buffet</option>
+                        <option value="3">Luxury Buffet</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closeTableModal()">ยกเลิก</button>
+                    <button type="submit" class="btn btn-submit">เปิดรอบและพิมพ์ QR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <!-- Hidden Printable Receipt Area -->
+    <div id="printArea" class="print-only">
+        <div class="receipt-box">
+            <h2 style="font-size: 1.2rem; margin-bottom: 4px;">BUFFET RESTAURANT</h2>
+            <p style="font-size: 0.8rem; margin-bottom: 8px;">Table Check-in Slip</p>
+            <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;" />
+            
+            <p style="text-align: left; margin: 4px 0;"><strong>Table:</strong> <span id="printTableId"></span></p>
+            <p style="text-align: left; margin: 4px 0;"><strong>Guests:</strong> <span id="printGuests"></span></p>
+            <p style="text-align: left; margin: 4px 0;"><strong>Package:</strong> <span id="printPackage"></span></p>
+            <p style="text-align: left; margin: 4px 0;"><strong>Valid Until:</strong> <span id="printEndTime"></span></p>
+            
+            <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;" />
+            <div id="printQrCode" style="margin: 10px 0;"></div>
+            <p style="font-size: 0.75rem;">Scan to order food<br>(Valid for 2 hours)</p>
+            <div style="margin: 10px 0;">
+                <img id="printQrImage" src="" alt="QR Code" style="width: 150px; height: 150px; display: inline-block;" />
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        const modal = document.getElementById('tableModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalTableId = document.getElementById('modalTableId');
+        const customerInput = document.getElementById('customerCount');
+
+        // ฟังก์ชันเปิด Modal พร้อมเซ็ตค่าโต๊ะที่กด
+        function openTableModal(tableNumber, maxSeats) {
+            modalTitle.innerText = `เปิดรอบบุฟเฟต์: โต๊ะ ${tableNumber}`;
+            modalTableId.value = tableNumber;
+            customerInput.max = maxSeats; // กำหนดจำนวนคนสูงสุดตามขนาดโต๊ะ
+            customerInput.value = '';
+
+            modal.classList.add('active');
+        }
+
+        // ฟังก์ชันปิด Modal
+        function closeTableModal() {
+            modal.classList.remove('active');
+        }
+
+        // ปิดเมื่อคลิกพื้นที่ว่างข้างนอกการ์ด
+        function handleBackdropClick(e) {
+            if (e.target === modal) {
+                closeTableModal();
+            }
+        }
+
+        // ฟังก์ชันจัดการตอนกดยืนยันฟอร์ม
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const formData = {
+                table_id:  parseInt(modalTableId.value),
+                customer_count: parseInt(customerInput.value),
+                packages_id: parseInt(document.getElementById('packageSelect').value)
+            };
+
+            try {
+                const response = await fetch(`/create-session`, {
+                    method : "POST",
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json()
+                
+                if (result.session_token) {
+    
+                document.getElementById('printTableId').innerText = formData.table_id;
+                document.getElementById('printGuests').innerText = formData.customer_count;
+                document.getElementById('printPackage').innerText = document.getElementById('packageSelect').selectedOptions[0].text;
+                document.getElementById('printEndTime').innerText = new Date(result.endtime).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+                const qrImg = document.getElementById('printQrImage');
+                qrImg.src = result.qrcode;
+                
+                closeTableModal();
+    
+                window.onafterprint = () => {
+                window.open(`/order/${result.session_token}`, '_blank');
+                window.onafterprint = null; // เคลียร์ listener ทิ้งเพื่อไม่ให้ trigger ซ้ำ
+                };
+    
+                setTimeout(() => {
+                    window.print();
+                }, 300);
+    
+                };
+            }
+            catch(err) {
+                console.error("Error:", err);
+            };            
+
+
+            
+            const currentTable = document.getElementById(`table-${formData.table_id}`);
+            if (currentTable) {
+                currentTable.classList.remove('status-available');
+                currentTable.classList.add('status-occupied');
+            }
+        }
+    </script>
+
+</body>
+</html>
