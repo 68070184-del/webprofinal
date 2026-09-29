@@ -77,7 +77,7 @@ app.post("/create-session", async (req,res) => {
 
 app.get("/order/:token", (req,res) => {
     const token = req.params.token;
-    const sql = "SELECT session_id,end_time FROM dining_sessions WHERE session_token = ? AND status = ?"
+    const sql = "SELECT session_id,end_time,table_id FROM dining_sessions WHERE session_token = ? AND status = ?"
     db.get(sql,[token,"active"], (err,result) =>{
         if (err) {
             console.log(err)
@@ -111,7 +111,7 @@ app.get("/order/:token", (req,res) => {
                 console.log(err)
                 return res.status(500).json({error:"Can not query sql"})
             }
-            return res.render("order",{data:menuresult})
+            return res.render("order",{data:menuresult,table_id:result.table_id})
         })
     
     })

@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+    font-family: "Kanit", "Varela Round", sans-serif;
+}
+
+/* ล็อกหน้าจอหลักไม่ให้เลื่อนทั้งหน้า */
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+/* Header ส่วนหัว */
+.header-section {
+    flex-shrink: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 16px;
+    background-color: burlywood;
+}
+
+/* พื้นที่เนื้อหาหลักแบ่ง 2 ฝั่ง */
+.content-area {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+/* ฝั่งปุ่มหมวดหมู่: อยู่กับที่ (Fixed Width) เลื่อนได้เฉพาะในแถบตัวเอง */
+.category-sidebar {
+    width: 105px; /* ล็อกความกว้างปุ่มฝั่งซ้าย */
+    background-color: #ffffff;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+    flex-shrink: 0;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ซ่อนแถบ Scrollbar ฝั่งปุ่มหมวดหมู่ */
+.category-sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+/* ฝั่งรายการอาหาร: ขยายเต็มพื้นที่ที่เหลือ และเลื่อนขึ้น-ลงได้ */
+.menu-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+}
