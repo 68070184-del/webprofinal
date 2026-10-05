@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>พนักงาน - จัดการโต๊ะ</title>
+    <link rel="stylesheet" href="/table.css">
+    <style>
+        body { background: #f5f5f5; }
+
+        .list { padding: 16px; max-width: 600px; margin: 0 auto; }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .table-name { font-size: 1.4rem; font-weight: bold; }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .badge-billed { background: #e3f2fd; color: #1565c0; }
+        .badge-cleaning { background: #fff3e0; color: #e65100; }
+
+        .action-btn {
+            width: 100%;
+            min-height: 52px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            color: #fff;
+            cursor: pointer;
+        }
+        .action-btn:active { opacity: 0.8; }
+        .action-btn:disabled { opacity: 0.5; }
+        .btn-clean { background: #e65100; }
+        .btn-done { background: #2e7d32; }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <h1 class="header-title">จัดการโต๊ะ (พนักงาน)</h1>
+    </div>
+
+    <div class="list">
+        <% if (tables.length === 0) { %>
+            <p style="text-align: center; color: #999;">ไม่มีโต๊ะที่รอดำเนินการ</p>
+        <% } %>
+
+        <% tables.forEach(t => { %>
+            <div class="card">
+                <div class="card-top">
+                    <span class="table-name">โต๊ะ <%= t.table_id %></span>
+                    <% if (t.status === 'billed') { %>
+                        <span class="badge badge-billed">ชำระเงินแล้ว</span>
+                    <% } else { %>
+                        <span class="badge badge-cleaning">กำลังทำความสะอาด</span>
+                    <% } %>
+                </div>
+
+                <% if (t.status === 'billed') { %>
+                    <button class="action-btn btn-clean" onclick="changeStatus(<%= t.table_id %>, this)">เริ่มทำความสะอาด</button>
+                <% } else { %>
+                    <button class="action-btn btn-done" onclick="changeStatus(<%= t.table_id %>, this)">ทำความสะอาดเสร็จ (ว่าง)</button>
+                <% } %>
+            </div>
+        <% }) %>
+    </div>
+
+    <script>
+        async function changeStatus(tableId, btn) {
+            btn.disabled = true; // กันกดซ้ำ
+
+            const res = await fetch('/api/table-status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ table_id: tableId })
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.error);
+                btn.disabled = false;
+                return;
+            }
+            location.reload();
+        }
+
+        setInterval(() => location.reload(), 20000);
+    </script>
+
+</body>
+</html>

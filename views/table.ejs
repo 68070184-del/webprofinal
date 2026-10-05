@@ -26,16 +26,16 @@
         <div class="zone">
             <div class="zone-header">Zone A: 2 ที่นั่ง</div>
             <div class="grid-2">
-                <a href="javascript:void(0)" id="table-1" onclick="openTableModal(1,2)" class="table-box status-available">
+                <a href="javascript:void(0)" id="table-1" onclick="openTableModal(1,2)" class="table-box status-<%= tableStatus[1] || 'available' %>">
                     <h3>1</h3><span>2 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-2" class="table-box status-available" onclick="openTableModal(2,2)">
+                <a href="javascript:void(0)" id="table-2" class="table-box status-<%= tableStatus[2] || 'available' %>" onclick="openTableModal(2,2)">
                     <h3>2</h3><span>2 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-3" class="table-box status-available" onclick="openTableModal(3,2)">
+                <a href="javascript:void(0)" id="table-3" class="table-box status-<%= tableStatus[3] || 'available' %>" onclick="openTableModal(3,2)">
                     <h3>3</h3><span>2 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-4" class="table-box status-available" onclick="openTableModal(4,2)">
+                <a href="javascript:void(0)" id="table-4" class="table-box status-<%= tableStatus[4] || 'available' %>" onclick="openTableModal(4,2)">
                     <h3>4</h3><span>2 Seats</span>
                 </a>
             </div>
@@ -45,28 +45,28 @@
         <div class="zone">
             <div class="zone-header">Zone B: 4 ที่นั่ง</div>
             <div class="grid-4">
-                <a href="javascript:void(0)" id="table-5" class="table-box status-available" onclick="openTableModal(5,4)">
+                <a href="javascript:void(0)" id="table-5" class="table-box status-<%= tableStatus[5] || 'available' %>" onclick="openTableModal(5,4)">
                     <h3>5</h3><span>4 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-6" class="table-box status-available" onclick="openTableModal(6,4)">
+                <a href="javascript:void(0)" id="table-6" class="table-box status-<%= tableStatus[6] || 'available' %>" onclick="openTableModal(6,4)">
                     <h3>6</h3><span>4 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-7" class="table-box status-available" onclick="openTableModal(7,4)">
+                <a href="javascript:void(0)" id="table-7" class="table-box status-<%= tableStatus[7] || 'available' %>" onclick="openTableModal(7,4)">
                     <h3>7</h3><span>4 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-8" class="table-box status-available" onclick="openTableModal(8,4)">
+                <a href="javascript:void(0)" id="table-8" class="table-box status-<%= tableStatus[8] || 'available' %>" onclick="openTableModal(8,4)">
                     <h3>8</h3><span>4 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-9" class="table-box status-available" onclick="openTableModal(9,4)">
+                <a href="javascript:void(0)" id="table-9" class="table-box status-<%= tableStatus[9] || 'available' %>" onclick="openTableModal(9,4)">
                     <h3>9</h3><span>4 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-10" class="table-box status-available" onclick="openTableModal(10,4)">
+                <a href="javascript:void(0)" id="table-10" class="table-box status-<%= tableStatus[10] || 'available' %>" onclick="openTableModal(10,4)">
                     <h3>10</h3><span>4 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-11" class="table-box status-available" onclick="openTableModal(11,4)">
+                <a href="javascript:void(0)" id="table-11" class="table-box status-<%= tableStatus[11] || 'available' %>" onclick="openTableModal(11,4)">
                     <h3>11</h3><span>4 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-12" class="table-box status-available" onclick="openTableModal(12,4)">
+                <a href="javascript:void(0)" id="table-12" class="table-box status-<%= tableStatus[12] || 'available' %>" onclick="openTableModal(12,4)">
                     <h3>12</h3><span>4 Seats</span>
                 </a>
             </div>
@@ -76,28 +76,28 @@
         <div class="zone">
             <div class="zone-header">Zone C: 6 & 8 ที่นั่ง</div>
             <div class="grid-large">
-                <a href="javascript:void(0)" id="table-13" class="table-box status-available" onclick="openTableModal(13,6)">
+                <a href="javascript:void(0)" id="table-13" class="table-box status-<%= tableStatus[13] || 'available' %>" onclick="openTableModal(13,6)">
                     <h3>13</h3><span>6 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-14" class="table-box status-available" onclick="openTableModal(14,6)">
+                <a href="javascript:void(0)" id="table-14" class="table-box status-<%= tableStatus[14] || 'available' %>" onclick="openTableModal(14,6)">
                     <h3>14</h3><span>6 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-15" class="table-box status-available" onclick="openTableModal(15,6)">
+                <a href="javascript:void(0)" id="table-15" class="table-box status-<%= tableStatus[15] || 'available' %>" onclick="openTableModal(15,6)">
                     <h3>15</h3><span>6 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-16" class="table-box status-available" onclick="openTableModal(16,6)">
+                <a href="javascript:void(0)" id="table-16" class="table-box status-<%= tableStatus[16] || 'available' %>" onclick="openTableModal(16,6)">
                     <h3>16</h3><span>6 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-17" class="table-box status-available" onclick="openTableModal(17,6)">
+                <a href="javascript:void(0)" id="table-17" class="table-box status-<%= tableStatus[17] || 'available' %>" onclick="openTableModal(17,6)">
                     <h3>17</h3><span>6 Seats</span>
                 </a>    
-                <a href="javascript:void(0)" id="table-18" class="table-box status-available" onclick="openTableModal(18,6)">
+                <a href="javascript:void(0)" id="table-18" class="table-box status-<%= tableStatus[18] || 'available' %>" onclick="openTableModal(18,6)">
                     <h3>18</h3><span>6 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-19" class="table-box status-available" onclick="openTableModal(19,8)"> 
+                <a href="javascript:void(0)" id="table-19" class="table-box status-<%= tableStatus[19] || 'available' %>" onclick="openTableModal(19,8)"> 
                     <h3>19</h3><span>8 Seats</span>
                 </a>
-                <a href="javascript:void(0)" id="table-20" class="table-box status-available" onclick="openTableModal(20,8)">
+                <a href="javascript:void(0)" id="table-20" class="table-box status-<%= tableStatus[20] || 'available' %>" onclick="openTableModal(20,8)">
                     <h3>20</h3><span>8 Seats</span>
                 </a>
             </div>
@@ -119,9 +119,9 @@
                 <div class="form-group">
                     <label for="packageSelect">แพ็กเกจบุฟเฟต์:</label>
                     <select id="packageSelect" name="packages_id" required>
-                        <option value="1">Standard Buffet</option>
-                        <option value="2">Premium Buffet</option>
-                        <option value="3">Luxury Buffet</option>
+                        <option value="1" data-price="299">Standard Buffet</option>
+                        <option value="2" data-price="499">Premium Buffet</option>
+                        <option value="3" data-price="699">Luxury Buffet</option>
                     </select>
                 </div>
 
@@ -135,21 +135,77 @@
 
         <!-- Hidden Printable Receipt Area -->
     <div id="printArea" class="print-only">
-        <div class="receipt-box">
-            <h2 style="font-size: 1.2rem; margin-bottom: 4px;">BUFFET RESTAURANT</h2>
-            <p style="font-size: 0.8rem; margin-bottom: 8px;">Table Check-in Slip</p>
-            <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;" />
-            
-            <p style="text-align: left; margin: 4px 0;"><strong>Table:</strong> <span id="printTableId"></span></p>
-            <p style="text-align: left; margin: 4px 0;"><strong>Guests:</strong> <span id="printGuests"></span></p>
-            <p style="text-align: left; margin: 4px 0;"><strong>Package:</strong> <span id="printPackage"></span></p>
-            <p style="text-align: left; margin: 4px 0;"><strong>Valid Until:</strong> <span id="printEndTime"></span></p>
-            
-            <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;" />
-            <div id="printQrCode" style="margin: 10px 0;"></div>
-            <p style="font-size: 0.75rem;">Scan to order food<br>(Valid for 2 hours)</p>
-            <div style="margin: 10px 0;">
-                <img id="printQrImage" src="" alt="QR Code" style="width: 150px; height: 150px; display: inline-block;" />
+        <div class="receipt-box" style="text-align: center;">
+            <h2 style="margin: 0;">อร่อยดีชาบู RESTAURANT</h2>
+            <p style="margin: 2px 0;">ใบแจ้งรายการ</p>
+            <hr style="border: none; border-top: 1px dashed #000;">
+
+            <h3>โต๊ะ : <span id="printTableId"></span> จำนวน : <span id="printGuests"></span> ท่าน</h3>
+            <p style="margin: 0;">Scan สั่งอาหารที่นี่</p>
+            <img id="printQrImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
+            <p>เริ่ม <span id="printStartTime"></span> - สิ้นสุด <span id="printEndTime"></span></p>
+            <hr style="border: none; border-top: 1px dashed #000;">
+
+            <p style="text-align: left;">
+                <span id="printQty"></span> <span id="printPackage"></span>
+                <span id="printLineTotal" style="float: right;"></span>
+            </p>
+            <hr style="border: none; border-top: 1px solid #000;">
+            <p style="text-align: left;">ภาษี 7% <span id="printVat" style="float: right;"></span></p>
+            <h3 style="text-align: left;">ยอดสุทธิ <span id="printGrandTotal" style="float: right;"></span></h3>
+        </div>
+    </div>
+
+        <!-- Modal ประวัติการสั่งอาหาร + สรุปราคา -->
+    <div id="historyModal" class="modal-overlay" onclick="handleHistoryBackdrop(event)">
+        <div class="modal-card">
+            <h3 id="historyTitle">ประวัติการสั่งอาหาร</h3>
+            <p id="historySubtitle"></p>
+
+            <!-- รายการอาหาร -->
+            <div id="historyItemList" style="max-height: 220px; overflow-y: auto; margin: 12px 0;"></div>
+
+            <hr>
+
+            <!-- สรุปราคา -->
+            <p>ค่าบุฟเฟต์: <span id="histBuffetTotal">0.00 ฿</span></p>
+            <p>เมนูสั่งเพิ่ม: <span id="histExtraTotal">0.00 ฿</span></p>
+            <p><strong>ยอดรวม: <span id="histTotalAmount">0.00 ฿</span></strong></p>
+
+            <!-- ปุ่ม -->
+            <div class="modal-actions">
+                <button type="button" class="btn btn-cancel" onclick="closeHistoryModal()">ปิด</button>
+                <button type="button" class="btn btn-submit" onclick="handleCheckBill()">เช็คบิล</button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal เช็คบิล -->
+    <div id="billModal" class="modal-overlay" onclick="handleBillBackdrop(event)">
+        <div class="modal-card">
+            <h3 id="billTitle">เช็คบิล</h3>
+
+            <!-- ยอดที่ต้องชำระ (อยู่บนสุดทั้งเงินสดและ QR) -->
+            <h2 style="text-align: center; margin: 12px 0;">ยอดชำระ: <span id="billGrandTotal"></span></h2>
+
+            <p>ค่าบุฟเฟต์: <span id="billBuffet"></span></p>
+            <p>เมนูสั่งเพิ่ม: <span id="billExtra"></span></p>
+            <p>VAT 7%: <span id="billVat"></span></p>
+            <hr>
+
+            <!-- เลือกวิธีชำระ -->
+            <div class="modal-actions" style="margin: 12px 0;">
+                <button type="button" class="btn btn-submit" onclick="choosePayment('qrcode')">QR Code</button>
+                <button type="button" class="btn btn-submit" onclick="choosePayment('cash')">เงินสด</button>
+            </div>
+
+            <div id="cashBox" style="display: none; text-align: center;">
+                <p>กรุณารับเงินสดจากลูกค้า</p>
+            </div>
+
+            <div class="modal-actions" style="margin-top: 12px;">
+                <button type="button" class="btn btn-cancel" onclick="closeBillModal()">ยกเลิก</button>
+                <button type="button" id="confirmPayBtn" class="btn btn-submit" style="display: none;" onclick="confirmPay()">ยืนยันการชำระเงิน</button>
             </div>
         </div>
     </div>
@@ -160,14 +216,24 @@
         const modalTitle = document.getElementById('modalTitle');
         const modalTableId = document.getElementById('modalTableId');
         const customerInput = document.getElementById('customerCount');
+        const historyModal = document.getElementById('historyModal');
+        let currentBill = null;
+        let currentBillTableId = null;
 
         // ฟังก์ชันเปิด Modal พร้อมเซ็ตค่าโต๊ะที่กด
         function openTableModal(tableNumber, maxSeats) {
+            const tableEl = document.getElementById(`table-${tableNumber}`);
+
+            // ถ้าโต๊ะไม่ว่าง -> เปิดประวัติ + เช็คบิล
+            if (!tableEl.classList.contains('status-available')) {
+                openHistoryModal(tableNumber);
+                return;
+            }
+
             modalTitle.innerText = `เปิดรอบบุฟเฟต์: โต๊ะ ${tableNumber}`;
             modalTableId.value = tableNumber;
-            customerInput.max = maxSeats; // กำหนดจำนวนคนสูงสุดตามขนาดโต๊ะ
+            customerInput.max = maxSeats;
             customerInput.value = '';
-
             modal.classList.add('active');
         }
 
@@ -205,12 +271,21 @@
                 
                 if (result.session_token) {
     
+                const opt = document.getElementById('packageSelect').selectedOptions[0];
+                const total = Number(opt.dataset.price) * formData.customer_count;
+                const vat = Number((total * 0.07).toFixed(2));
+                const timeOpts = { hour: '2-digit', minute: '2-digit' };
+
                 document.getElementById('printTableId').innerText = formData.table_id;
                 document.getElementById('printGuests').innerText = formData.customer_count;
-                document.getElementById('printPackage').innerText = document.getElementById('packageSelect').selectedOptions[0].text;
-                document.getElementById('printEndTime').innerText = new Date(result.endtime).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
-                const qrImg = document.getElementById('printQrImage');
-                qrImg.src = result.qrcode;
+                document.getElementById('printStartTime').innerText = new Date(result.starttime).toLocaleTimeString('th-TH', timeOpts);
+                document.getElementById('printEndTime').innerText = new Date(result.endtime).toLocaleTimeString('th-TH', timeOpts);
+                document.getElementById('printQty').innerText = formData.customer_count;
+                document.getElementById('printPackage').innerText = opt.text;
+                document.getElementById('printLineTotal').innerText = total.toFixed(2);
+                document.getElementById('printVat').innerText = vat.toFixed(2);
+                document.getElementById('printGrandTotal').innerText = (total + vat).toFixed(2);
+                document.getElementById('printQrImage').src = result.qrcode;
                 
                 closeTableModal();
     
@@ -237,6 +312,118 @@
                 currentTable.classList.add('status-occupied');
             }
         }
+
+        async function openHistoryModal(tableNumber) {
+            currentBillTableId = tableNumber;
+            const res = await fetch(`/api/table-bill/${tableNumber}`);
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.error);
+                return;
+            }
+            currentBill = data;
+
+            document.getElementById('historyTitle').innerText = `โต๊ะ ${tableNumber}`;
+            document.getElementById('historySubtitle').innerText = `${data.package_name} • ${data.customer_count} ท่าน`;
+
+            let html = '';
+            data.items.forEach(i => {
+                html += `<div style="display:flex; justify-content:space-between;">
+                            <span>${i.name} × ${i.quantity}</span>
+                            <span>${i.subtotal.toFixed(2)} ฿</span>
+                        </div>`;
+            });
+            document.getElementById('historyItemList').innerHTML = html || 'ยังไม่มีรายการสั่ง';
+
+            document.getElementById('histBuffetTotal').innerText = data.buffet_total.toFixed(2) + ' ฿';
+            document.getElementById('histExtraTotal').innerText = data.extra_total.toFixed(2) + ' ฿';
+            document.getElementById('histTotalAmount').innerText = data.total.toFixed(2) + ' ฿';
+
+            historyModal.classList.add('active');
+        }
+
+    function closeHistoryModal() {
+        historyModal.classList.remove('active');
+    }
+
+    function handleHistoryBackdrop(e) {
+        if (e.target === historyModal) closeHistoryModal();
+    }
+
+    const billModal = document.getElementById('billModal');
+    
+    let selectedMethod = null;
+
+    function handleCheckBill() {
+        document.getElementById('billTitle').innerText = `เช็คบิล: โต๊ะ ${currentBillTableId}`;
+        document.getElementById('billGrandTotal').innerText = currentBill.grand_total.toFixed(2) + ' ฿';
+        document.getElementById('billBuffet').innerText = currentBill.buffet_total.toFixed(2) + ' ฿';
+        document.getElementById('billExtra').innerText = currentBill.extra_total.toFixed(2) + ' ฿';
+        document.getElementById('billVat').innerText = currentBill.vat.toFixed(2) + ' ฿';
+
+        // รีเซ็ตการเลือก
+        selectedMethod = null;
+        document.getElementById('cashBox').style.display = 'none';
+        document.getElementById('confirmPayBtn').style.display = 'none';
+
+        closeHistoryModal();
+        billModal.classList.add('active');
+    }
+
+    let qrWindow = null;
+
+        function choosePayment(method) {
+            selectedMethod = method;
+            document.getElementById('cashBox').style.display = method === 'cash' ? 'block' : 'none';
+            document.getElementById('confirmPayBtn').style.display = 'block';
+
+            if (qrWindow) qrWindow.close();
+
+            if (method === 'qrcode') {
+                qrWindow = window.open('', 'qrWindow', 'width=400,height=550');
+                qrWindow.document.write(`
+                    <html>
+                    <head><title>ชำระเงินด้วย QR Code</title></head>
+                    <body style="font-family: sans-serif; text-align: center; padding-top: 30px;">
+                        <h2>ยอดชำระทั้งหมด</h2>
+                        <h1>${currentBill.grand_total.toFixed(2)} ฿</h1>
+                        <img src="${location.origin}/img/shabu-qr.png" style="width: 260px;">
+                        <p>สแกนเพื่อชำระเงิน</p>
+                    </body>
+                    </html>
+                `);
+                qrWindow.document.close();
+            }
+    }
+
+    async function confirmPay() {
+        const res = await fetch('/api/pay', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...currentBill, table_id: currentBillTableId, payment_method: selectedMethod })
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.error);
+            return;
+        }
+
+        document.getElementById(`table-${currentBillTableId}`).className = 'table-box status-billed';
+        if (qrWindow) qrWindow.close();
+        closeBillModal();
+    }
+
+    function closeBillModal() {
+        billModal.classList.remove('active');
+    }
+
+    function handleBillBackdrop(e) {
+        if (e.target === billModal) closeBillModal();
+    }
+
+    setInterval(() => location.reload(), 20000);
     </script>
 
 </body>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>หน้าจอครัว</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Kanit', sans-serif; }
+        .bg-pending { border-top: 6px solid #fd7e14; }
+        .bg-preparing { border-top: 6px solid #0dcaf0; background-color: #f0faff; }
+    </style>
+</head>
+<body class="bg-dark p-3">
+
+    <div class="d-flex justify-content-between text-white mb-3 align-items-center">
+        <h4 class="mb-0">รายการอาหารในครัว</h4>
+        <button class="btn btn-outline-light btn-sm" onclick="location.reload()">รีเฟรชหน้า</button>
+    </div>
+
+    <!-- แถวแสดงการ์ดออเดอร์ -->
+    <div class="row g-3">
+        <% if (orders.length === 0) { %>
+            <div class="col-12 text-center text-white-50 py-5">
+                <h5>ไม่มีรายการอาหารค้างทำ</h5>
+            </div>
+        <% } %>
+
+        <% orders.forEach(order => { %>
+            <div class="col-12 col-md-4 col-lg-3" id="card-<%= order.order_id %>">
+                <div class="card h-100 shadow-sm <%= order.status === 'preparing' ? 'bg-preparing' : 'bg-pending' %>">
+                    
+                    <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                        <span class="fw-bold fs-5 text-danger">โต๊ะ <%= order.table_id %></span>
+                        <small class="text-muted"><%= order.time %> น.</small>
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <% order.items.forEach(item => { %>
+                                <li class="d-flex justify-content-between py-1 border-bottom">
+                                    <span><%= item.name %></span>
+                                    <span class="badge bg-danger rounded-pill">x<%= item.qty %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+
+                    <div class="card-footer bg-transparent">
+                        <% if (order.status === 'pending') { %>
+                            <button class="btn btn-warning w-100 fw-bold" onclick="setPreparing('<%= order.order_id %>')">
+                                จัดเตรียม (พิมพ์)
+                            </button>
+                        <% } else { %>
+                            <button class="btn btn-success w-100 fw-bold" onclick="setCompleted('<%= order.order_id %>')">
+                                เสร็จสิ้น
+                            </button>
+                        <% } %>
+                    </div>
+
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <script>
+        // 1. กดจัดเตรียม -> สั่งพิมพ์ -> อัปเดต DB -> รีเฟรชหน้าเพื่อเปลี่ยนสีและการ์ด
+        // กดจัดเตรียม -> พิมพ์เฉพาะใบออเดอร์นั้น -> อัปเดต DB -> รีเฟรชหน้า
+    async function setPreparing(orderId) {
+        const card = document.getElementById(`card-${orderId}`);
+        if (!card) return;
+
+        // 1. ดึงข้อความเลขโต๊ะ และรายการอาหารภายในการ์ดใบนี้
+        const tableText = card.querySelector('.card-header span').innerText; // เช่น "โต๊ะ 1"
+        const items = card.querySelectorAll('.card-body li');
+
+        let itemsHtml = '';
+        items.forEach(li => {
+            const foodName = li.querySelector('span:first-child').innerText;
+            const qty = li.querySelector('.badge').innerText;
+            itemsHtml += `
+                <div style="display: flex; justify-content: space-between; font-size: 18px; padding: 4px 0; border-bottom: 1px dashed #ccc;">
+                    <span>${foodName}</span>
+                    <b>${qty}</b>
+                </div>
+            `;
+        });
+
+        // 2. เปิดหน้าต่างเล็กๆ จำลองสลิปและสั่งพิมพ์เฉพาะข้อมูลนี้
+        const printWindow = window.open('', '', 'width=300,height=400');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>ใบเตรียมอาหาร</title>
+                    <style>
+                        body { font-family: sans-serif; padding: 10px; margin: 0; width: 250px; }
+                        h2 { margin: 0 0 10px 0; border-bottom: 2px solid #000; padding-bottom: 5px; }
+                    </style>
+                </head>
+                <body>
+                    <h2>${tableText}</h2>
+                    <div>${itemsHtml}</div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+
+            // 3. อัปเดตสถานะใน Database เป็น preparing
+            await fetch('/api/order-status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ order_id: orderId, status: 'preparing' })
+            });
+
+            // 4. รีเฟรชหน้าเพื่อเปลี่ยนสีการ์ด
+            location.reload();
+        }
+
+        // 2. กดเสร็จสิ้น -> อัปเดต DB -> ซ่อนการ์ดออกทันที
+        async function setCompleted(orderId) {
+            await fetch('/api/order-status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ order_id: orderId, status: 'completed' })
+            });
+            document.getElementById(`card-${orderId}`).remove(); // เอาการ์ดออกจากหน้าจอทันที
+        }
+
+        // ตั้งรีเฟรชหน้าจออัตโนมัติทุกๆ 15 วินาที เพื่อดึงออเดอร์ใหม่
+        setInterval(() => location.reload(), 15000);
+    </script>
+</body>
+</html>

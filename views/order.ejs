@@ -6,7 +6,6 @@
     <title>อร่อยดีชาบู - สั่งอาหาร</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +39,7 @@
                 <% data.forEach(item => { %>
                     <!-- col-12: บังคับแถวละ 1 การ์ดเสมอ | จอคอม/แท็บเล็ต col-md-6 col-lg-4 -->
                     <div class="col-12 col-md-6 col-lg-4 menu-item <%= item.category_id %>">
-                        <div class="card h-100 shadow-sm border-0 rounded-3">
+                        <div class="card h-100  shadow-sm border-0 rounded-3" onclick="openFoodModal('<%= item.item_id %>','<%= item.name %>','<%= item.price %>')">
                             <img src="/img/<%= item.item_id %>.jpg" 
                                  class="card-img-top rounded-top-3" 
                                  alt="<%= item.item_name || item.name %>" 
@@ -51,7 +50,6 @@
                                     <h6 class="card-title mb-0 fw-bold fs-6"><%= item.name %></h6>
                                     <span class="text-danger fw-bold fs-6"><%= item.price %> ฿</span>
                                 </div>
-                                <button class="btn btn-outline-danger btn-sm w-100 mt-2 py-1 fw-semibold">+ เพิ่มในรายการ</button>
                             </div>
                         </div>
                     </div>
@@ -68,7 +66,7 @@
             
             <!-- ปุ่ม 1: ตะกร้าสินค้า -->
             <div class="col-6">
-                <div class="cart d-flex flex-column align-items-center position-relative cursor-pointer text-danger" role="button">
+                <div class="cart d-flex flex-column align-items-center position-relative cursor-pointer text-danger" role="button" onclick="openCartModal()">
                     <div class="position-relative">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
                             <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9zM1 7v1h14V7zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5"/>
@@ -84,7 +82,7 @@
 
             <!-- ปุ่ม 2: ประวัติการสั่ง -->
             <div class="col-6">
-                <div class="history d-flex flex-column align-items-center cursor-pointer text-secondary" role="button">
+                <div class="history d-flex flex-column align-items-center cursor-pointer text-secondary" role="button" onclick="openHistoryModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
                         <path d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27m.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0z"/>
                         <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
@@ -97,18 +95,137 @@
     </div>
     </div>
 
-    <script>
-        function selectedCategory(category) {
-            const foodCards = document.querySelectorAll('.menu-item')
-            foodCards.forEach(card => {
-                if ( category === "all" || card.classList.contains(category)) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = 'none';
-                }
-            })
-        }
-    </script>
+    <div id="foodDetailModal" class="modal-overlay" onclick="handleFoodBackdropClick(event)">
+        <div class="modal-card p-0 overflow-hidden" style="max-width: 380px;">
+            <!-- รูปภาพอาหารขนาดใหญ่ -->
+            <img id="modalFoodImg" src="" alt="Food Image" style="width: 100%; height: 220px; object-fit: cover;">
+            
+            <div class="p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0" id="modalFoodName">ชื่ออาหาร</h5>
+                    <span class="text-danger fw-bold fs-5"><span id="modalFoodPrice">0</span> ฿</span>
+                </div>
+
+                <!-- ฟอร์มส่งข้อมูลไปยัง /add-to-cart -->
+                <form id="addToCartForm" onsubmit="submitAddToCart(event)">
+                    <input type="hidden" name="item_id" id="modalItemId">
+                    <input type="hidden" name="name" id="modalInputName">
+                    <input type="hidden" name="price" id="modalInputPrice">
+
+                    <!-- ปุ่มควบคุมจำนวน (-) 1 (+) -->
+                    <div class="d-flex justify-content-between align-items-center bg-light rounded-3 p-2 mb-3 border">
+                        <span class="fw-semibold text-secondary ms-1">จำนวน</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <button type="button" class="btn btn-outline-danger btn-sm rounded-circle fw-bold d-flex align-items-center justify-content-center" 
+                                    style="width: 34px; height: 34px; font-size: 1.2rem;" 
+                                    onclick="changeModalQty(-1)">-</button>
+                            
+                            <input type="number" 
+                                   id="modalQuantity" 
+                                   name="quantity" 
+                                   value="1" 
+                                   min="1" 
+                                   readonly 
+                                   class="form-control-plaintext text-center fw-bold fs-5 p-0" 
+                                   style="width: 44px;">
+                            
+                            <button type="button" class="btn btn-danger btn-sm rounded-circle fw-bold d-flex align-items-center justify-content-center" 
+                                    style="width: 34px; height: 34px; font-size: 1.2rem;" 
+                                    onclick="changeModalQty(1)">+</button>
+                        </div>
+                    </div>
+
+                    <!-- ปุ่ม Action ปิด หรือ เพิ่มลงตะกร้า -->
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-light w-50 py-2 fw-semibold" onclick="closeFoodModal()">ยกเลิก</button>
+                        <button type="submit" class="btn btn-danger w-50 py-2 fw-semibold">+ เพิ่มในรายการ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="serverMsgModal" class="modal-overlay">
+        <div class="modal-card text-center p-4" style="max-width: 320px;">
+            <div class="mb-3">
+                <i class="bi bi-check-circle-fill text-success" id="serverMsgIcon" style="font-size: 3rem;"></i>
+            </div>
+            <h5 class="fw-bold mb-2" id="serverMsgTitle">แจ้งเตือน</h5>
+            <p class="text-secondary mb-4" id="serverMsgText">ข้อความจากระบบ</p>
+            <button type="button" class="btn btn-danger w-100 py-2 fw-semibold" onclick="closeServerMsgModal()">ตกลง</button>
+        </div>
+    </div>
+
+        <!-- 3. Modal ตะกร้าสินค้า (ดึงข้อมูลจาก Session) -->
+    <div id="cartModal" class="modal-overlay" onclick="handleCartBackdropClick(event)">
+        <div class="modal-card p-3 d-flex flex-column" style="max-width: 420px; max-height: 80vh;">
+            
+            <!-- ส่วนหัว (ตรึงอยู่ด้านบน ไม่เลื่อนตาม) -->
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2 flex-shrink-0">
+                <h5 class="fw-bold mb-0">รายการในตะกร้า</h5>
+                <button type="button" class="btn-close" onclick="closeCartModal()"></button>
+            </div>
+
+            <!-- กล่องรายการอาหาร (เลื่อน Scroll ขึ้น-ลงเฉพาะกล่องนี้) -->
+            <div id="cartItemsContainer" class="flex-grow-1 overflow-y-auto px-1 mb-2" style="min-height: 120px;">
+                <!-- JavaScript จะสร้างรายการอาหารมาวางตรงนี้ -->
+            </div>
+
+            <!-- ส่วนสรุปราคาและปุ่มสั่ง (ตรึงอยู่ด้านล่าง ไม่เลื่อนตาม) -->
+            <form id="checkoutForm" onsubmit="submitOrder(event)" class="border-top pt-2 flex-shrink-0">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-secondary small">จำนวนทั้งหมด:</span>
+                    <span class="fw-bold"><span id="cartModalTotalQty">0</span> จาน</span>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fw-bold fs-6">ราคารวมทั้งหมด:</span>
+                    <span class="fw-bold fs-5 text-danger"><span id="cartModalTotalPrice">0</span> ฿</span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-light w-50 py-2 fw-semibold" onclick="closeCartModal()">เลือกต่อ</button>
+                    <button type="submit" class="btn btn-danger w-50 py-2 fw-semibold" id="btnSubmitOrder">ส่งเข้าครัว</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+        <!-- Modal แสดงประวัติการสั่งอาหารแบบเรียบง่าย -->
+    <div id="historyModal" class="modal-overlay" onclick="handleHistoryBackdropClick(event)">
+        <div class="modal-card p-3 d-flex flex-column" style="max-width: 420px; max-height: 80vh;">
+            
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2 flex-shrink-0">
+                <h5 class="fw-bold mb-0">ประวัติการสั่งอาหาร</h5>
+                <button type="button" class="btn-close" onclick="closeHistoryModal()"></button>
+            </div>
+
+            <!-- Scrollable History List -->
+            <div id="historyItemsContainer" class="flex-grow-1 overflow-y-auto px-1 mb-2" style="min-height: 120px;">
+                <!-- Simple items will be loaded here -->
+            </div>
+
+            <div class="border-top pt-2 mb-2 flex-shrink-0">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-bold fs-6">ยอดรวมทั้งหมดที่สั่งไป:</span>
+                    <span class="fw-bold fs-5 text-danger"><span id="historyGrandTotal">0</span> ฿</span>
+                </div>
+            </div>
+
+            <!-- Close Button -->
+            <div class="border-top pt-2 flex-shrink-0">
+                <button type="button" class="btn btn-secondary w-100 py-2 fw-semibold" onclick="closeHistoryModal()">ปิด</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script src="/js/order.js"></script>
 
     <!-- Bootstrap 5 Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
