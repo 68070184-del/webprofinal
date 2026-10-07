@@ -34,6 +34,32 @@ app.use((req, res, next) => {
     next();
 });
 
+// ---------- Server-Sent Events ----------
+let sseClients = [];
+
+app.get("/events", (req, res) => {
+    res.set({
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive"
+    });
+    res.flushHeaders();
+
+    sseClients.push(res);
+    req.on("close", () => {
+        sseClients = sseClients.filter(c => c !== res);
+    });
+});
+
+// แจ้งทุกหน้าที่เปิดอยู่ว่ามีข้อมูลเปลี่ยน ("tables" หรือ "orders")
+function notify(eventName, data = {}) {
+    sseClients.forEach(c => c.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`));
+}
+
+app.get("/",(req,res) => {
+    res.render("home")
+})
+
 
 app.get("/table", (req, res) => {
     db.all("SELECT table_id, status FROM tables", [], (err, rows) => {
@@ -83,6 +109,8 @@ app.post("/create-session", async (req,res) => {
                 return res.status(500).json({error:"Falied to change table status."})
             }
             console.log("Change table status")
+
+            notify("tables", { table_id: table_id, status: "occupied" });
 
             return res.status(200).json({
                 message: "Session created successfully",
@@ -287,6 +315,7 @@ app.post("/submit-order", (req, res) => {
                 // เคลียร์ตะกร้าเมื่อบันทึกเสร็จ
                 req.session.cart = [];
 
+                notify("orders");
                 return res.status(200).json({
                     message: "ส่งรายการอาหารเข้าครัวเรียบร้อยแล้ว!",
                     order_id: orderId,
@@ -418,6 +447,7 @@ app.post("/api/pay", (req, res) => {
         db.run("UPDATE dining_sessions SET status = 'closed' WHERE session_id = ?", [session_id]);
         db.run("UPDATE tables SET status = 'billed' WHERE table_id = ?", [table_id]);
 
+        notify("tables", { table_id: table_id, status: "billed" });
         res.json({ success: true });
     });
 });
@@ -442,6 +472,7 @@ app.post("/api/table-status", (req, res) => {
 
         db.run("UPDATE tables SET status = ? WHERE table_id = ?", [next, req.body.table_id], (err) => {
             if (err) return res.status(500).json({ error: err.message });
+            notify("tables", { table_id: req.body.table_id, status: next });
             res.json({ success: true });
         });
     });

@@ -9,6 +9,14 @@
         * { font-family: 'Kanit', sans-serif; }
         .bg-pending { border-top: 6px solid #fd7e14; }
         .bg-preparing { border-top: 6px solid #0dcaf0; background-color: #f0faff; }
+
+        #printArea { display: none; }
+
+        @media print {
+            body > *:not(#printArea) { display: none !important; }
+            body.bg-dark { background: #fff !important; padding: 0 !important; }
+            #printArea { display: block; width: 250px; color: #000; }
+        }
     </style>
 </head>
 <body class="bg-dark p-3">
@@ -63,6 +71,12 @@
         <% }) %>
     </div>
 
+    <!-- กล่องสำหรับพิมพ์ใบสั่งอาหาร (ซ่อนไว้) -->
+    <div id="printArea">
+        <h2 id="printTable" style="margin: 0 0 10px 0; border-bottom: 2px solid #000; padding-bottom: 5px;"></h2>
+        <div id="printItems"></div>
+    </div>
+
     <script>
         // 1. กดจัดเตรียม -> สั่งพิมพ์ -> อัปเดต DB -> รีเฟรชหน้าเพื่อเปลี่ยนสีและการ์ด
         // กดจัดเตรียม -> พิมพ์เฉพาะใบออเดอร์นั้น -> อัปเดต DB -> รีเฟรชหน้า
@@ -70,12 +84,11 @@
         const card = document.getElementById(`card-${orderId}`);
         if (!card) return;
 
-        // 1. ดึงข้อความเลขโต๊ะ และรายการอาหารภายในการ์ดใบนี้
-        const tableText = card.querySelector('.card-header span').innerText; // เช่น "โต๊ะ 1"
-        const items = card.querySelectorAll('.card-body li');
+        // 1. ใส่เลขโต๊ะและรายการอาหารลงในกล่องพิมพ์
+        document.getElementById('printTable').innerText = card.querySelector('.card-header span').innerText;
 
         let itemsHtml = '';
-        items.forEach(li => {
+        card.querySelectorAll('.card-body li').forEach(li => {
             const foodName = li.querySelector('span:first-child').innerText;
             const qty = li.querySelector('.badge').innerText;
             itemsHtml += `
@@ -85,39 +98,21 @@
                 </div>
             `;
         });
+        document.getElementById('printItems').innerHTML = itemsHtml;
 
-        // 2. เปิดหน้าต่างเล็กๆ จำลองสลิปและสั่งพิมพ์เฉพาะข้อมูลนี้
-        const printWindow = window.open('', '', 'width=300,height=400');
-            printWindow.document.write(`
-                <html>
-                <head>
-                    <title>ใบเตรียมอาหาร</title>
-                    <style>
-                        body { font-family: sans-serif; padding: 10px; margin: 0; width: 250px; }
-                        h2 { margin: 0 0 10px 0; border-bottom: 2px solid #000; padding-bottom: 5px; }
-                    </style>
-                </head>
-                <body>
-                    <h2>${tableText}</h2>
-                    <div>${itemsHtml}</div>
-                </body>
-                </html>
-            `);
-            printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-            printWindow.close();
+        // 2. พิมพ์จากหน้าเดิม
+        window.print();
 
-            // 3. อัปเดตสถานะใน Database เป็น preparing
-            await fetch('/api/order-status', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ order_id: orderId, status: 'preparing' })
-            });
+        // 3. อัปเดตสถานะใน Database เป็น preparing
+        await fetch('/api/order-status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ order_id: orderId, status: 'preparing' })
+        });
 
-            // 4. รีเฟรชหน้าเพื่อเปลี่ยนสีการ์ด
-            location.reload();
-        }
+        // 4. รีเฟรชหน้าเพื่อเปลี่ยนสีการ์ด
+        location.reload();
+    }
 
         // 2. กดเสร็จสิ้น -> อัปเดต DB -> ซ่อนการ์ดออกทันที
         async function setCompleted(orderId) {
@@ -129,8 +124,7 @@
             document.getElementById(`card-${orderId}`).remove(); // เอาการ์ดออกจากหน้าจอทันที
         }
 
-        // ตั้งรีเฟรชหน้าจออัตโนมัติทุกๆ 15 วินาที เพื่อดึงออเดอร์ใหม่
-        setInterval(() => location.reload(), 15000);
+        new EventSource('/events').addEventListener('orders', () => location.reload());
     </script>
 </body>
 </html>

@@ -100,7 +100,7 @@
             location.reload();
         }
 
-        setInterval(() => location.reload(), 20000);
+        new EventSource('/events').addEventListener('tables', () => location.reload());
     </script>
 
 </body>
